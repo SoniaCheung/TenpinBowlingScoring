@@ -2,19 +2,19 @@ var maxRound = 10;
 
 function formatData(str){
   var maxData = 21;
-  var dataIndex = 0;
+  var index = 0;
   var round = 0;
   
   var input = str.split(",").map(Number);
   var data = new Array(maxData).fill(0);
 
   for (i = 0; i < input.length; i++){
-      data[dataIndex] = input[i]
+      data[index] = input[i]
       if (input[i] == 10 && round < maxRound-1){
-          dataIndex += 2;
+          index += 2;
           round += 1;
       } else {
-          dataIndex += 1;
+          index += 1;
           round += 0.5;
       }
   }
@@ -26,8 +26,8 @@ function getIndexByRound(round){
 }
 
 function isStrike(round, data){
-  	var dataIndex = getIndexByRound(round);
-  	if(data[dataIndex] == 10){
+  	var index = getIndexByRound(round);
+  	if(data[index] == 10){
 		return true;
     } else {
     	return false;
@@ -35,8 +35,8 @@ function isStrike(round, data){
 }
 
 function isSpare(round, data){
-  	var dataIndex = getIndexByRound(round);
-  	if(data[dataIndex] + data[dataIndex+1] == 10){
+  	var index = getIndexByRound(round);
+  	if(data[index] + data[index+1] == 10){
 		return true;
     } else {
     	return false;
@@ -44,33 +44,33 @@ function isSpare(round, data){
 }
 
 function calStrikeScore(round, data){
-	var dataIndex = getIndexByRound(round);
-  	return data[dataIndex] + data[dataIndex+2] + data[dataIndex+3];
+	var index = getIndexByRound(round);
+  	return data[index] + data[index+2] + data[index+3];
 }
 
 function calDoubleStrikeScore(round, data){
-	var dataIndex = getIndexByRound(round);
-  	return data[dataIndex] + data[dataIndex+2] + data[dataIndex+4];
+	var index = getIndexByRound(round);
+  	return data[index] + data[index+2] + data[index+4];
 }
 
 function calSpareScore(round, data){
- 	var dataIndex = getIndexByRound(round);
-	return data[dataIndex] + data[dataIndex+1] + data[dataIndex+2];
+ 	var index = getIndexByRound(round);
+	return data[index] + data[index+1] + data[index+2];
 }
 
 function calNormalScore(round, data){
-	var dataIndex = getIndexByRound(round);
-  	return data[dataIndex] + data[dataIndex+1];
+	var index = getIndexByRound(round);
+  	return data[index] + data[index+1];
 }
 
 function calLastRoundScore(round, data){
-	var dataIndex = getIndexByRound(round);
-  	return data[dataIndex] + data[dataIndex+1] + data[dataIndex+2];
+	var index = getIndexByRound(round);
+  	return data[index] + data[index+1] + data[index+2];
 }
 
 function calScore(str){
   var data = formatData(str);
-  var score = 0;
+  var total = 0;
 
   for (i = 0; i < maxRound; i++) {
       var roundScore = 0
@@ -89,9 +89,9 @@ function calScore(str){
       } else {
       	roundScore = calLastRoundScore(i,data);
       }
-      score += roundScore;
+      total += roundScore;
   }
 
-  window.alert("Total score = " + score)
-  return score;
+  window.alert("Total score = " + total)
+  return total;
 }
