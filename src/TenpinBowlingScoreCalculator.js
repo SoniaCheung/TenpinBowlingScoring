@@ -2,12 +2,12 @@ var maxRound = 10;
 
 function formatData(str){
   var maxData = 21;
-  
-  var input = str.split(",").map(Number);
-  
-  var data = new Array(maxData).fill(0);
   var dataIndex = 0;
   var round = 0;
+  
+  var input = str.split(",").map(Number);
+  var data = new Array(maxData).fill(0);
+
   for (i = 0; i < input.length; i++){
       data[dataIndex] = input[i]
       if (input[i] == 10 && round < maxRound-1){
@@ -18,8 +18,6 @@ function formatData(str){
           round += 0.5;
       }
   }
-
-  console.log(data);
   return data;
 }
 
@@ -71,7 +69,6 @@ function calLastRoundScore(round, data){
 }
 
 function calScore(str){
-  console.log(str);
   var data = formatData(str);
   var score = 0;
 
@@ -79,14 +76,12 @@ function calScore(str){
       var roundScore = 0
       if (i < maxRound -1){
         if(isStrike(i, data)){
-            console.log("Round " + (i + 1) + " is Strike !!!");
             if (isStrike(i+1,data)){
               roundScore = calDoubleStrikeScore(i, data)
             } else {
               roundScore = calStrikeScore(i,data);
             }
         } else if (isSpare(i, data)){
-            console.log("Round " + (i + 1) + " is Spare !!!");
             roundScore = calSpareScore(i, data);
         } else {
             roundScore = calNormalScore(i, data);
@@ -95,11 +90,8 @@ function calScore(str){
       	roundScore = calLastRoundScore(i,data);
       }
       score += roundScore;
-      console.log("Round " + (i + 1) + " = " + roundScore);
   }
 
-  console.log("Total score = " + score)
+  window.alert("Total score = " + score)
   return score;
 }
-
-calScore("9,1,10,8,0,2");
