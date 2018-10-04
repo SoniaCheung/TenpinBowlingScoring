@@ -150,7 +150,12 @@ function calStrikeScore(round, data){
 ```js
 function calDoubleStrikeScore(round, data){
 	var index = getIndexByRound(round);
-  	return data[index] + data[index+2] + data[index+4];
+  	if (round != maxRound-1){
+		return data[index] + data[index+2] + data[index+4];
+	} else {
+		return data[index] + data[index+2] + data[index+3];
+	}
+
 }
 ```
 
